@@ -30,7 +30,7 @@ jobs:
         with:
           poetry-version: ${{ matrix.poetry-version }}
       - name: Install GDAL
-        command: |
+        run: |
           sudo apt update
           sudo apt install -y gdal-bin
       - name: Install dependencies
