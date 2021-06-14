@@ -29,6 +29,10 @@ jobs:
         uses: abatilo/actions-poetry@v2.0.0
         with:
           poetry-version: ${{ matrix.poetry-version }}
+      - name: Install GDAL
+        command: |
+          sudo apt update
+          sudo apt install -y gdal-bin
       - name: Install dependencies
         run: poetry install
       - name: Run tests
