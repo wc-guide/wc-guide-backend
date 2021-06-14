@@ -1,0 +1,35 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "population": 800
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [10.0, 10.00]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "population": 900
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [20.00, 20.20]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "population": 500
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [30.00, 30.00]
+      }
+    }
+  ]
+}
