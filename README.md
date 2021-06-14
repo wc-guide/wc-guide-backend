@@ -1,8 +1,31 @@
 # wc-guide-backend
-
+![Overview](doc/images/wc_guide_overview.png)
 ## Development
+### Prerequisites
+To start development make sure the following applications are installed:
+ - Docker https://docs.docker.com/get-docker/
+ - Poetry (https://python-poetry.org/docs/)
+ - GDAL (https://gdal.org/)
+### Setup
 
-### Database
+#### Database
+Run PostgreSQL Database with PostGIS extension.
 ```sh
 docker run --name wc-guide-backend-db -e POSTGRES_DB=wc-guide-backend-db -e POSTGRES_USER=guide -e POSTGRES_PASSWORD=wc-guide-backend -d -p 5432:5432 mdillon/postgis
 ```
+#### Backend
+Run Django Backend.
+```sh
+poetry install
+poetry run python manage.py migrate
+poetry run python manage.py runserver
+```
+Now you can navigate to http://localhost:8000/swagger/ to get the API documentation.
+
+#### Testing
+To run the test locally execute the following command:
+```sh
+ poetry run pytest -v -s
+```
+Further, there is a GitHub Action that executes the tests on over push to main and pull request.
+[GitHub Action Testing](.github/workflow/testing.yml)
