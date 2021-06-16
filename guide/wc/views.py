@@ -15,7 +15,7 @@ class AreaViewSet(viewsets.ModelViewSet):
     def update(self, request, *args, **kwargs):
         pk = kwargs.pop('pk', None)
         if pk is not None:
-            request.data['name'] = pk
+            request.data.update({'name':  pk})
         instance = self.get_object_or_none()
         if instance is None:
             return super().create(request, *args, **kwargs)
