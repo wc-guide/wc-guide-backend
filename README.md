@@ -3,7 +3,7 @@
 ## Development
 ### Prerequisites
 To start development make sure the following applications are installed:
- - Docker https://docs.docker.com/get-docker/
+ - Docker (https://docs.docker.com/get-docker/)
  - Poetry (https://python-poetry.org/docs/)
  - GDAL (https://gdal.org/)
 ### Setup
@@ -29,3 +29,10 @@ To run the test locally execute the following command:
 ```
 Further, there is a GitHub Action that executes the tests on over push to main and pull request.
 [GitHub Action Testing](.github/workflow/testing.yml)
+
+
+#### Examples
+If you want to query all toilets within a certain bounding box, you can do the following request:
+```sh
+curl get http://localhost:8000/toilets/?in_bbox=9.283283,47.081593,9.372739,47.133249
+```
