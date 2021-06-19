@@ -1,7 +1,9 @@
-from django.http import Http404
+from django.http import Http404, HttpResponse, JsonResponse
+from django.views import View
 from rest_framework import permissions, viewsets
 from rest_framework.request import clone_request
 from rest_framework_gis.filters import InBBoxFilter
+import overpass
 
 from guide.wc.models import Toilet, Area
 from guide.wc.serializers import ToiletSerializer, AreaSerializer
@@ -15,7 +17,7 @@ class AreaViewSet(viewsets.ModelViewSet):
     def update(self, request, *args, **kwargs):
         pk = kwargs.pop('pk', None)
         if pk is not None:
-            request.data.update({'name':  pk})
+            request.data.update({'name': pk})
         instance = self.get_object_or_none()
         if instance is None:
             return super().create(request, *args, **kwargs)
@@ -37,3 +39,16 @@ class ToiletViewSet(viewsets.ModelViewSet):
     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
     bbox_filter_field = 'geometry'
     filter_backends = (InBBoxFilter,)
+
+
+class Overpass(View):
+
+    def get(self, request, *args, **kwargs):
+        if 'in_bbox' in request.GET:
+            in_bbox = request.GET['in_bbox']
+            print("in_bbox", in_bbox)
+            api = overpass.API()
+            response = api.get('node["name"="Salt Lake City"]', responseformat="geojson")
+            return JsonResponse(response)
+        else:
+            raise Http404('Missing required parameters')

@@ -24,6 +24,7 @@ router.register(r'toilets', views.ToiletViewSet, basename='toilets')
 urlpatterns = [
     path('', include(router.urls)),
     path('admin/', admin.site.urls),
+    path('overpass/', views.Overpass.as_view(), name='overpass'),
     path('swagger<format>[.json|.yaml]',
          schema_view.without_ui(cache_timeout=0), name='schema-json'),
     path('swagger/', schema_view.with_ui('swagger',
