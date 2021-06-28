@@ -5,6 +5,7 @@ import pytest
 from django.urls import reverse
 
 from guide.wc.models import Toilet
+from guide.wc.views import query_builder
 
 CONTENT_TYPE = "application/json"
 
@@ -53,3 +54,10 @@ def test_get_toilets_in_bbox(auto_login_user, toilets_three):
     response = client.get(url, {'in_bbox': "0.0,25.0,25.0,0.0"})
     content = json.loads(response.content)
     assert len(content['features']) == 2
+
+
+def test_query_builder():
+    bbox = [9, 47, 10, 48]
+    query = query_builder(bbox)
+    expected = '(node["amenity"="toilets"](47,9,48,10);<;>;);'
+    assert query == expected

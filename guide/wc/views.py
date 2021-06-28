@@ -1,4 +1,4 @@
-from django.http import Http404, HttpResponse, JsonResponse
+from django.http import Http404, JsonResponse
 from django.views import View
 from rest_framework import permissions, viewsets
 from rest_framework.request import clone_request
@@ -46,9 +46,18 @@ class Overpass(View):
     def get(self, request, *args, **kwargs):
         if 'in_bbox' in request.GET:
             in_bbox = request.GET['in_bbox']
-            print("in_bbox", in_bbox)
+            bbox = in_bbox.split(",")
+            if len(bbox) != 4:
+                raise Http404('Missing valid bounding box')
+            query = query_builder(bbox)
             api = overpass.API()
-            response = api.get('node["name"="Salt Lake City"]', responseformat="geojson")
+            response = api.get(query, responseformat="geojson")
+            print('response', response)
             return JsonResponse(response)
         else:
             raise Http404('Missing required parameters')
+
+
+def query_builder(bbox):
+    south, west, north, east = bbox[1], bbox[0], bbox[3], bbox[2]
+    return f'(node["amenity"="toilets"]({south},{west},{north},{east});<;>;);'

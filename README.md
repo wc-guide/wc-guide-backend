@@ -22,7 +22,7 @@ poetry run python manage.py runserver
 ```
 Now you can navigate to http://localhost:8000/swagger/ to get the API documentation.
 
-#### Testing
+### Testing
 To run the test locally execute the following command:
 ```sh
  poetry run pytest -v -s
@@ -31,8 +31,20 @@ Further, there is a GitHub Action that executes the tests on over push to main a
 [GitHub Action Testing](.github/workflow/testing.yml)
 
 
-#### Examples
+### Examples
+
+### Stored Data
+
 If you want to query all toilets within a certain bounding box, you can do the following request:
 ```sh
-curl get http://localhost:8000/toilets/?in_bbox=9.283283,47.081593,9.372739,47.133249
+curl http://localhost:8000/toilets/?in_bbox=9.283283,47.081593,9.372739,47.133249
 ```
+The `in_box` has to be ordered as follows min Lon (west), min Lat (south), max Lon (east) and max Lat (north).
+
+### Overpass
+
+If you want to query all toilets within a certain bounding box, you can do the following request:
+```sh
+curl http://localhost:8000/overpass/?in_bbox=9.283283,47.081593,9.372739,47.133249
+```
+The `in_box` has to be ordered as follows min Lon (west), min Lat (south), max Lon (east) and max Lat (north).
