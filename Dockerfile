@@ -4,6 +4,8 @@ RUN apt-get update
 RUN apt-get install gdal-bin -y
 RUN curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/get-poetry.py | python -
 
+ENV PATH="${PATH}:/root/.local/bin"
+
 WORKDIR /usr/src/app
 COPY . .
 
