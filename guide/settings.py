@@ -82,7 +82,7 @@ WSGI_APPLICATION = 'guide.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
-DATABASE_HOST = "localhost" if DEBUG else "host.docker.internal"
+DATABASE_HOST = 'localhost' if DEBUG else 'host.docker.internal'
 
 DATABASES = {
     'default': {
@@ -90,7 +90,7 @@ DATABASES = {
         'NAME': 'wc-guide-backend-db',
         'USER': 'guide',
         'PASSWORD': 'wc-guide-backend',
-        'HOST': DATABASE_HOST,
+        'HOST': 'host.docker.internal',
         'PORT': '5432',
     },
 }
