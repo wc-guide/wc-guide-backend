@@ -11,6 +11,9 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 """
 
 from pathlib import Path
+import os
+
+env = os.environ.get
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -19,10 +22,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-c0nmxt94-=(#_0sxg$o47d0i7e_fl%emt301pak%65+nuv7lta'
+SECRET_KEY = env("DJANGO_SECRET_KEY", 'django-insecure-c0nmxt94-=(#_0sxg$o47d0i7e_fl%emt301pak%65+nuv7lta')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = env("DJANGO_DEBUG", "True")
 
 ALLOWED_HOSTS = ['*']
 
@@ -79,13 +82,15 @@ WSGI_APPLICATION = 'guide.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
+DATABASE_HOST = "localhost" if DEBUG else "host.docker.internal"
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.contrib.gis.db.backends.postgis',
         'NAME': 'wc-guide-backend-db',
         'USER': 'guide',
         'PASSWORD': 'wc-guide-backend',
-        'HOST': 'localhost',
+        'HOST': DATABASE_HOST,
         'PORT': '5432',
     },
 }
