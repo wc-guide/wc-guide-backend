@@ -10,7 +10,7 @@ COPY . .
 RUN cd /usr/src/app \
     && poetry install \
     && poetry run python manage.py makemigrations \
-    && poetry run python manage.py migrate \
+    && poetry run python manage.py migrate
 
 EXPOSE 80
 CMD ["poetry", "run", "python", "manage.py", "runserver", "0.0.0.0:80"]
