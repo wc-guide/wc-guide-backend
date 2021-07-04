@@ -89,8 +89,8 @@ DATABASES = {
         'ENGINE': 'django.contrib.gis.db.backends.postgis',
         'NAME': 'wc-guide-backend-db',
         'USER': 'guide',
-        'PASSWORD': '172.17.0.1',
-        'HOST': 'host.docker.internal',
+        'PASSWORD': 'wc-guide-backend',
+        'HOST': '172.17.0.1',
         'PORT': '5432',
     },
 }
