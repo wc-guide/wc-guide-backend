@@ -91,7 +91,7 @@ DATABASES = {
         'NAME': 'wc-guide-backend-db',
         'USER': 'guide',
         'PASSWORD': 'wc-guide-backend',
-        'HOST': DATABASE_HOST,
+        'HOST': '172.17.0.1',  # TODO: change this to DATABASE_HOST
         'PORT': '5432',
     },
 }
