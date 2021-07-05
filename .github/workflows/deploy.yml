@@ -19,3 +19,4 @@ jobs:
         with:
           git_remote_url: 'ssh://51.15.121.145:22/wc-guide-backend'
           ssh_private_key: ${{ secrets.SCALEWAY_SSH_PRIVATE_KEY }}
+          ssh_host_key: ${{ secrets.SCALEWAY_SSH_HOST_KEY }}
