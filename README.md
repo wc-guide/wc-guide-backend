@@ -72,6 +72,7 @@ docker run --name wc-guide-backend-db -e POSTGRES_DB=wc-guide-backend-db -e POST
 wc-guide-backend:
 ```sh
 dokku apps:create wc-guide-backend
+dokku nginx:set wc-guide-backend client-max-body-size 128m # Did not work had to be set manualy
 dokku config:set wc-guide-backend DJANGO_DEBUG=False DJANGO_SECRET_KEY=Pcp2FV9Ad1dbFSNhJXFAGZ2tsH0vCpQCnPLfFXVRq04bL0y05VrzrbfPxV9nl5gSEJmzIkelMye0PIvlR6TKk9GdavARmj0YTqGP
 dokku config:set wc-guide-backend DJANGO_SUPERUSER_USERNAME=guide DJANGO_SUPERUSER_EMAIL=guide@wc-guide.com DJANGO_SUPERUSER_PASSWORD=8q6mDmQH5uxH
 ```
