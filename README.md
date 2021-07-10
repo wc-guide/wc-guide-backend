@@ -73,7 +73,11 @@ wc-guide-backend:
 ```sh
 dokku apps:create wc-guide-backend
 dokku config:set wc-guide-backend DJANGO_DEBUG=False DJANGO_SECRET_KEY=Pcp2FV9Ad1dbFSNhJXFAGZ2tsH0vCpQCnPLfFXVRq04bL0y05VrzrbfPxV9nl5gSEJmzIkelMye0PIvlR6TKk9GdavARmj0YTqGP
+dokku config:set wc-guide-backend DJANGO_SUPERUSER_USERNAME=guide DJANGO_SUPERUSER_EMAIL=guide@wc-guide.com DJANGO_SUPERUSER_PASSWORD=8q6mDmQH5uxH
 ```
+As you can see we set env variables for the superuser, they are used within the Dockerfile to create the superuser.
+Further, the intention is to use the superuser to create/updated data.
+
 
 #### Local Machine (GitHub) 
 To deploy the wc-guide-backend you have to add the remote repository.
