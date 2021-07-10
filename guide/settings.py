@@ -30,6 +30,8 @@ DEBUG = True if DJANGO_DEBUG == "True" else False
 
 ALLOWED_HOSTS = ['*']
 
+DATA_UPLOAD_MAX_MEMORY_SIZE = 128 * 1024 * 1024  # 128MB
+
 # Application definition
 
 INSTALLED_APPS = [
