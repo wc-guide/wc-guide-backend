@@ -7,6 +7,7 @@ import overpass
 
 from guide.wc.models import Toilet, Area
 from guide.wc.serializers import ToiletSerializer, AreaSerializer
+from guide.wc.utils import transform_geojson
 
 
 class AreaViewSet(viewsets.ModelViewSet):
@@ -52,8 +53,9 @@ class Overpass(View):
             query = query_builder(bbox)
             api = overpass.API()
             response = api.get(query, responseformat="geojson")
-            print('response', response)
-            return JsonResponse(response)
+            transformed_response = transform_geojson(response)
+            print('transformed_response', transformed_response)
+            return JsonResponse(transformed_response)
         else:
             raise Http404('Missing required parameters')
 
