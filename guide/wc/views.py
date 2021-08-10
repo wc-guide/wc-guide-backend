@@ -4,6 +4,7 @@ from rest_framework import permissions, viewsets
 from rest_framework.request import clone_request
 from rest_framework_gis.filters import InBBoxFilter
 import overpass
+import requests
 
 from guide.wc.models import Toilet, Area
 from guide.wc.serializers import ToiletSerializer, AreaSerializer
@@ -42,8 +43,25 @@ class ToiletViewSet(viewsets.ModelViewSet):
     filter_backends = (InBBoxFilter,)
 
 
-class Overpass(View):
+class IpApi(View):
+    def get(self, request, *args, **kwargs):
+        ip = get_client_ip(request)
+        response = requests.get(f"http://ip-api.com/json/{ip}")
+        return JsonResponse(response.json())
 
+
+def get_client_ip(request):
+    x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
+    if x_forwarded_for:
+        ip = x_forwarded_for.split(',')[-1].strip()
+    elif request.META.get('HTTP_X_REAL_IP'):
+        ip = request.META.get('HTTP_X_REAL_IP')
+    else:
+        ip = request.META.get('REMOTE_ADDR')
+    return ip
+
+
+class Overpass(View):
     def get(self, request, *args, **kwargs):
         if 'in_bbox' in request.GET:
             in_bbox = request.GET['in_bbox']
