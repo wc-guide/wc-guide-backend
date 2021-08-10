@@ -49,6 +49,11 @@ curl http://localhost:8000/overpass/?in_bbox=9.283283,47.081593,9.372739,47.1332
 ```
 The `in_box` has to be ordered as follows min Lon (west), min Lat (south), max Lon (east) and max Lat (north).
 
+### Ip-Api
+There is a ip-api endpoint that forwards the request to [Ip-Api](https://ip-api.com/) that is geolocation Api. 
+```sh
+curl http://localhost:8000/ip-api/
+```
 
 ## Deployment
 The wc-guide-backend is running on an instance for [Scaleway](https://www.scaleway.com/en/).
