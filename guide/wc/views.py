@@ -7,6 +7,7 @@ import overpass
 import requests
 
 from guide.wc.models import Toilet, Area
+from guide.wc.pagination import LargeResultsSetPagination, StandardResultsSetPagination
 from guide.wc.serializers import ToiletSerializer, AreaSerializer
 from guide.wc.utils import transform_geojson
 
@@ -15,6 +16,7 @@ class AreaViewSet(viewsets.ModelViewSet):
     serializer_class = AreaSerializer
     queryset = Area.objects.all()
     permission_classes = [permissions.IsAuthenticated]
+    pagination_class = StandardResultsSetPagination
 
     def update(self, request, *args, **kwargs):
         pk = kwargs.pop('pk', None)
@@ -40,6 +42,7 @@ class ToiletViewSet(viewsets.ModelViewSet):
     queryset = Toilet.objects.all()
     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
     bbox_filter_field = 'geometry'
+    pagination_class = LargeResultsSetPagination
     filter_backends = (InBBoxFilter,)
 
 
