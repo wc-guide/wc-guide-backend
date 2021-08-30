@@ -4,16 +4,6 @@ from rest_framework import routers, permissions
 
 from guide.wc import views
 
-schema_view = get_schema_view(
-    openapi.Info(
-        title="WC-Guide-Backend API",
-        default_version='v1',
-        description="WC-Guide-Backend",
-    ),
-    public=True,
-    permission_classes=(permissions.AllowAny,),
-)
-
 router = routers.DefaultRouter()
 router.register(r'area', views.AreaViewSet, basename='area')
 router.register(r'toilets', views.ToiletViewSet, basename='toilets')
