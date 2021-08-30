@@ -53,7 +53,7 @@ def test_get_toilets_in_bbox(auto_login_user, toilets_three):
     url = reverse('toilets-list')
     response = client.get(url, {'in_bbox': "0.0,25.0,25.0,0.0"})
     content = json.loads(response.content)
-    assert len(content['features']) == 2
+    assert len(content['results']['features']) == 2
 
 
 def test_query_builder():
