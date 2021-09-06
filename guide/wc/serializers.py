@@ -1,7 +1,7 @@
 from rest_framework import serializers
 from rest_framework_gis.serializers import GeoFeatureModelSerializer
 
-from guide.wc.models import Toilet, Area
+from guide.wc.models import Toilet, Area, Other, OtherArea
 
 
 class ToiletSerializer(GeoFeatureModelSerializer):
@@ -24,6 +24,19 @@ class ToiletSerializer(GeoFeatureModelSerializer):
         return attrs
 
 
+class OtherSerializer(ToiletSerializer):
+    class Meta:
+        model = Other
+        geo_field = 'geometry'
+        fields = ['geometry', 'properties']
+
+    def get_properties(self, instance, fields):
+        if type(instance) == Other:
+            return instance.properties
+        else:
+            return instance.get('properties')
+
+
 class AreaSerializer(serializers.ModelSerializer):
     features = ToiletSerializer(many=True, required=False)  # Attention: ToiletSerializer has to names as features!
 
@@ -42,3 +55,17 @@ class AreaSerializer(serializers.ModelSerializer):
     def update(self, instance, validated_data):
         instance.delete()
         return self.create(validated_data)
+
+
+class OtherAreaSerializer(AreaSerializer):
+    class Meta:
+        model = OtherArea
+        fields = ['name', 'features', 'others']
+        depth = 3
+
+    def create(self, validated_data):
+        features_data = validated_data.pop('features')
+        area = OtherArea.objects.create(**validated_data)
+        for feature_data in features_data:
+            Other.objects.create(area=area, **feature_data)
+        return area
