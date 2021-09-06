@@ -6,9 +6,9 @@ from rest_framework_gis.filters import InBBoxFilter
 import overpass
 import requests
 
-from guide.wc.models import Toilet, Area
+from guide.wc.models import Toilet, Area, OtherArea, Other
 from guide.wc.pagination import LargeResultsSetPagination, StandardResultsSetPagination
-from guide.wc.serializers import ToiletSerializer, AreaSerializer
+from guide.wc.serializers import ToiletSerializer, AreaSerializer, OtherAreaSerializer, OtherSerializer
 from guide.wc.utils import transform_geojson
 
 
@@ -37,6 +37,11 @@ class AreaViewSet(viewsets.ModelViewSet):
                 raise
 
 
+class OtherAreaViewSet(AreaViewSet):
+    serializer_class = OtherAreaSerializer
+    queryset = OtherArea.objects.all()
+
+
 class ToiletViewSet(viewsets.ModelViewSet):
     serializer_class = ToiletSerializer
     queryset = Toilet.objects.all()
@@ -44,6 +49,11 @@ class ToiletViewSet(viewsets.ModelViewSet):
     bbox_filter_field = 'geometry'
     pagination_class = LargeResultsSetPagination
     filter_backends = (InBBoxFilter,)
+
+
+class OtherViewSet(ToiletViewSet):
+    serializer_class = OtherSerializer
+    queryset = Other.objects.all()
 
 
 class IpApi(View):
