@@ -86,7 +86,6 @@ class Overpass(View):
             api = overpass.API(endpoint='https://lz4.overpass-api.de/api/interpreter', timeout=600)
             response = api.get(query, responseformat="geojson")
             transformed_response = transform_geojson(response)
-            print('transformed_response', transformed_response)
             return JsonResponse(transformed_response)
         else:
             raise Http404('Missing required parameters')
