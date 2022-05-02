@@ -82,7 +82,8 @@ class Overpass(View):
             if len(bbox) != 4:
                 raise Http404('Missing valid bounding box')
             query = query_builder(bbox)
-            api = overpass.API()
+            # api = overpass.API(endpoint='https://overpass.kumi.systems/api/interpreter', timeout=600)
+            api = overpass.API(endpoint='https://lz4.overpass-api.de/api/interpreter', timeout=600)
             response = api.get(query, responseformat="geojson")
             transformed_response = transform_geojson(response)
             print('transformed_response', transformed_response)
