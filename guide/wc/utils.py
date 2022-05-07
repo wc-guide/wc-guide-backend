@@ -99,15 +99,20 @@ def transform_feature(feature):
     }
 
 
+def filter_points(features):
+    return [feature for feature in features if feature['geometry']['type'] == 'Point']
+
+
 def transform_geojson(data):
     features = get_features(data=data)
     transformed_features = [transform_feature(feature) for feature in features]
+    feature_points = filter_points(transformed_features)
     return {
-        "count": len(transformed_features),
+        "count": len(feature_points),
         "next": None,
         "previous": None,
         "results": {
             "type": "FeatureCollection",
-            "features": transformed_features
+            "features": feature_points
         }
     }
