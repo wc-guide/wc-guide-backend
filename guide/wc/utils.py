@@ -76,6 +76,7 @@ def get_osm_id(feature):
 def get_geometry(feature):
     return feature.get("geometry", None)
 
+
 def get_line_string_center(coordinates):
     lon, lat = 0, 0
     for coordinate in coordinates:
@@ -122,9 +123,10 @@ def geometry_to_point(geometry):
 
 def transform_feature(feature):
     properties = get_properties(feature)
+    geometry = get_geometry(feature=feature)
     return {
         "type": "Feature",
-        "geometry": get_geometry(feature=feature),
+        "geometry": geometry_to_point(geometry),
         "properties": {
             "id": get_osm_id(feature=feature),
             "type": get_type(properties=properties),
@@ -142,20 +144,15 @@ def transform_feature(feature):
     }
 
 
-def filter_points(features):
-    return [feature for feature in features if feature['geometry']['type'] == 'Point']
-
-
 def transform_geojson(data):
     features = get_features(data=data)
     transformed_features = [transform_feature(feature) for feature in features]
-    feature_points = filter_points(transformed_features)
     return {
-        "count": len(feature_points),
+        "count": len(transformed_features),
         "next": None,
         "previous": None,
         "results": {
             "type": "FeatureCollection",
-            "features": feature_points
+            "features": transformed_features
         }
     }
