@@ -103,6 +103,11 @@ def transform_geojson(data):
     features = get_features(data=data)
     transformed_features = [transform_feature(feature) for feature in features]
     return {
-        "type": "FeatureCollection",
-        "features": transformed_features
+        "count": 1,
+        "next": None,
+        "previous": None,
+        "results": {
+            "type": "FeatureCollection",
+            "features": transformed_features
+        }
     }
