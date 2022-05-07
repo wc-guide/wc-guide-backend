@@ -64,5 +64,5 @@ def test_get_toilets_in_bbox(auto_login_user, toilets_three):
 def test_query_builder():
     bbox = [9, 47, 10, 48]
     query = query_builder(bbox)
-    expected = '(node["amenity"="toilets"](47,9,48,10);<;>;);'
+    expected = '(node["amenity"="toilets"](47,9,48,10););out body;>;out skel qt;'
     assert query == expected
