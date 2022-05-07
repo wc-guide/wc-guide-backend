@@ -93,5 +93,5 @@ class Overpass(View):
 
 def query_builder(bbox):
     south, west, north, east = bbox[1], bbox[0], bbox[3], bbox[2]
-    # return f'(node["amenity"="toilets"]({south},{west},{north},{east});<;>;);'
-    return f'(node["amenity"="toilets"]({south},{west},{north},{east});way["amenity"="toilets"]({south},{west},{north},{east});relation["amenity"="toilets"]({south},{west},{north},{east}););out body;>;out skel qt;'
+    return f'(node["amenity"="toilets"]({south},{west},{north},{east}););out body;>;out skel qt;'
+    # return f'(node["amenity"="toilets"]({south},{west},{north},{east});way["amenity"="toilets"]({south},{west},{north},{east});relation["amenity"="toilets"]({south},{west},{north},{east}););out body;>;out skel qt;'
