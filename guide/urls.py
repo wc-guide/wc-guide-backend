@@ -13,7 +13,7 @@ router.register(r'others', views.OtherViewSet, basename='others')
 urlpatterns = [
     path('', include(router.urls)),
     path('admin/', admin.site.urls),
-    # path('overpass/', views.Overpass.as_view(), name='overpass'),
-    path('toilets/', views.Overpass.as_view(), name='overpass'),
+    path('overpass/', views.Overpass.as_view(), name='overpass'),
+    path('toilets/', views.Overpass.as_view(), name='toilets'),
     path('ip-api/', views.IpApi.as_view(), name='ip-api'),
 ]
