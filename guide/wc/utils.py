@@ -6,7 +6,32 @@ def get_properties(feature):
     return feature.get('properties', {})
 
 
+def has_wheelchair_description_eurokey(properties):
+    wheelchair_description = properties.get("wheelchair:description", "").lower()
+    eurokey = "eurokey" in wheelchair_description
+    euro_schluessel = "euro-schlüssel" in wheelchair_description
+    euroschluessel = "euroschlüssel" in wheelchair_description
+    return eurokey or euro_schluessel or euroschluessel
+
+
+def has_centralkey_eurokey(properties):
+    return properties.get("centralkey", "") == "eurokey"
+
+
+def has_note_eurokey(properties):
+    return properties.get("note", "") == "Eurokey"
+
+
+def is_type_eurokey_osm(properties):
+    is_centralkey_eurokey = has_centralkey_eurokey(properties)
+    is_wheelchair_description_eurokey = has_wheelchair_description_eurokey(properties)
+    is_note_eurokey = has_note_eurokey(properties)
+    return is_centralkey_eurokey or is_wheelchair_description_eurokey or is_note_eurokey
+
+
 def get_type(properties):
+    if is_type_eurokey_osm(properties):
+        return 'eurokeyosm'
     if is_type_iv(properties):
         return 'iv'
     if is_type_pissoir(properties):
